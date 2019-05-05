@@ -1,5 +1,6 @@
 #!flask/bin/python
 from flask import Flask, jsonify
+import os
 
 app = Flask(__name__)
 
@@ -23,4 +24,6 @@ def get_tasks():
     return jsonify({'tasks': tasks})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Bind to PORT if defined, otherwise default to 3100.
+    port = int(os.environ.get('PORT', 3100))
+    app.run(host='0.0.0.0', port=port, debug=True)
